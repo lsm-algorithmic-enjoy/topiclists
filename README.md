@@ -5,3 +5,5 @@
    > json-server --version
 2. topic.json 기반 로컬 서버 실행 (4000번 포트 지정), http://localhost:4000/topics 경로에 로컬 서버 생성
    > json-server -p 4000 topic.json
+3. API 요청을 위한 axios 설치
+   > npm install axios
