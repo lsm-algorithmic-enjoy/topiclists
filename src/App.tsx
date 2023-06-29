@@ -9,26 +9,25 @@ type Topic = {
 
 function App() {
   const [topics, setTopics] = useState<Topic[]>([]);
-  const get_topics = async () => {
+  const getTopics = async () => {
     try {
-      const res = await axios.get<Topic[]>("http://localhost:4000/topics");
+      const res = await axios.get("http://localhost:4000/topics");
       setTopics(res.data);
     } catch (err) {}
   };
 
   useEffect(() => {
-    get_topics();
+    getTopics();
   }, []);
 
   return (
     <ul>
       {topics.map((topic) => (
         <li key={topic.idx}>
-          <img src={topic.imgPath} />
+          <img src={topic.imgPath} alt={topic.title} />
           <p>{topic.title}</p>
         </li>
       ))}
-      ;
     </ul>
   );
 }
