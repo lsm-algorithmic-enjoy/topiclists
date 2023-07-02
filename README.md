@@ -2,7 +2,7 @@
 
 프로젝트 진행 순서 정리
 
-1. CRA (TypeScript) 프로젝트 생성
+1. CRA (TypeScript) 프로젝트 생성, MUI 설치
 2. REST API 서버 구축을 위한 json-server 설치 및 topic.json 파일을 루트 디렉토리에 생성
    > npm install -g json-server
    > json-server --version

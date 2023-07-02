@@ -1,5 +1,22 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  IconButton,
+  TextField,
+  Button,
+} from "@mui/material";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
+import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import { styled } from "@mui/system";
+
+const TopicFilterInput = styled(TextField)({
+  width: "15%",
+  marginTop: "10px",
+});
 
 type Topic = {
   idx: string;
@@ -44,19 +61,27 @@ function TopicMessage({ topics, topicPrefix, setTopics }: Props) {
   }
 
   return (
-    <ul>
-      {filteredTopics.map(({ title, imgPath, idx, isLiked }) => {
-        return (
-          <li key={idx}>
-            <img src={imgPath} alt={title} />
-            <p>{title}</p>
-            <button onClick={() => toggleLike(idx)}>
-              {isLiked ? "지금 좋아" : "취소됨"}
-            </button>
-          </li>
-        );
-      })}
-    </ul>
+    <List>
+      {filteredTopics.map(({ title, imgPath, idx, isLiked }) => (
+        <ListItem key={idx}>
+          <ListItemIcon>
+            <img
+              src={imgPath}
+              alt={title}
+              style={{ width: "200px", height: "200px" }}
+            />
+          </ListItemIcon>
+          <ListItemText primary={title} />
+          <IconButton onClick={() => toggleLike(idx)}>
+            {isLiked ? (
+              <ThumbUpAltIcon color="primary" />
+            ) : (
+              <ThumbUpOffAltIcon color="primary" />
+            )}
+          </IconButton>
+        </ListItem>
+      ))}
+    </List>
   );
 }
 
@@ -71,12 +96,12 @@ function GradeTab({
 }) {
   const isActive = grade === selectedGrade;
   return (
-    <button
-      className={isActive ? "active" : ""}
+    <Button
       onClick={() => onGradeTabClick(grade)}
+      style={{ border: isActive ? "2px solid skyblue" : "none" }}
     >
       {grade === "" ? "전체" : grade}
-    </button>
+    </Button>
   );
 }
 
@@ -128,7 +153,7 @@ function App() {
           />
         ))}
       </div>
-      <input
+      <TopicFilterInput
         type="text"
         name="topicFilterInput"
         id="topicFilterInput"
