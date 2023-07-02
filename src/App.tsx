@@ -14,8 +14,28 @@ import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import { styled } from "@mui/system";
 
 const TopicFilterInput = styled(TextField)({
-  width: "15%",
+  width: "20%",
   marginTop: "10px",
+});
+
+const GradeTabContainer = styled("div")({
+  display: "flex",
+  marginBottom: "10px",
+});
+
+const GradeTabButton = styled(Button)<{ isActive: boolean }>(
+  ({ isActive }) => ({
+    border: isActive ? "2px solid skyblue" : "none",
+  })
+);
+
+const TopicImage = styled("img")({
+  width: "200px",
+  height: "200px",
+});
+
+const AppContainer = styled("div")({
+  margin: "10px 200px",
 });
 
 type Topic = {
@@ -65,7 +85,7 @@ function TopicMessage({ topics, topicPrefix, setTopics }: Props) {
       {filteredTopics.map(({ title, imgPath, idx, isLiked }) => (
         <ListItem key={idx}>
           <ListItemIcon>
-            <img
+            <TopicImage
               src={imgPath}
               alt={title}
               style={{ width: "200px", height: "200px" }}
@@ -96,12 +116,9 @@ function GradeTab({
 }) {
   const isActive = grade === selectedGrade;
   return (
-    <Button
-      onClick={() => onGradeTabClick(grade)}
-      style={{ border: isActive ? "2px solid skyblue" : "none" }}
-    >
+    <GradeTabButton onClick={() => onGradeTabClick(grade)} isActive={isActive}>
       {grade === "" ? "전체" : grade}
-    </Button>
+    </GradeTabButton>
   );
 }
 
@@ -142,8 +159,8 @@ function App() {
   }, []);
 
   return (
-    <>
-      <div>
+    <AppContainer>
+      <GradeTabContainer>
         {["", "입문", "초급", "중급", "중고급", "고급"].map((grade) => (
           <GradeTab
             key={grade}
@@ -152,7 +169,7 @@ function App() {
             onGradeTabClick={onGradeTabClick}
           />
         ))}
-      </div>
+      </GradeTabContainer>
       <TopicFilterInput
         type="text"
         name="topicFilterInput"
@@ -164,7 +181,7 @@ function App() {
         topicPrefix={topicPrefix}
         setTopics={setTopics}
       />
-    </>
+    </AppContainer>
   );
 }
 
