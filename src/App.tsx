@@ -60,6 +60,26 @@ function TopicMessage({ topics, topicPrefix, setTopics }: Props) {
   );
 }
 
+function GradeTab({
+  grade,
+  selectedGrade,
+  onGradeTabClick,
+}: {
+  grade: string;
+  selectedGrade: string;
+  onGradeTabClick: (grade: string) => void;
+}) {
+  const isActive = grade === selectedGrade;
+  return (
+    <button
+      className={isActive ? "active" : ""}
+      onClick={() => onGradeTabClick(grade)}
+    >
+      {grade === "" ? "전체" : grade}
+    </button>
+  );
+}
+
 function App() {
   const [topics, setTopics] = useState<Topic[]>([]);
   const [topicPrefix, setTopicPrefix] = useState<string>("");
@@ -99,12 +119,14 @@ function App() {
   return (
     <>
       <div>
-        <button onClick={() => onGradeTabClick("")}>전체</button>
-        <button onClick={() => onGradeTabClick("입문")}>입문</button>
-        <button onClick={() => onGradeTabClick("초급")}>초급</button>
-        <button onClick={() => onGradeTabClick("중급")}>중급</button>
-        <button onClick={() => onGradeTabClick("중고급")}>중고급</button>
-        <button onClick={() => onGradeTabClick("고급")}>고급</button>
+        {["", "입문", "초급", "중급", "중고급", "고급"].map((grade) => (
+          <GradeTab
+            key={grade}
+            grade={grade}
+            selectedGrade={selectedGrade}
+            onGradeTabClick={onGradeTabClick}
+          />
+        ))}
       </div>
       <input
         type="text"
