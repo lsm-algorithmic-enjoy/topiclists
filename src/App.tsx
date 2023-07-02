@@ -91,7 +91,7 @@ function TopicMessage({ topics, topicPrefix, setTopics }: Props) {
               style={{ width: "200px", height: "200px" }}
             />
           </ListItemIcon>
-          <ListItemText primary={title} />
+          <ListItemText primary={title} style={{ marginLeft: "20px" }} />
           <IconButton onClick={() => toggleLike(idx)}>
             {isLiked ? (
               <ThumbUpAltIcon color="primary" />

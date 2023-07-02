@@ -5,7 +5,7 @@
       "idx": "476",
       "imgPath": "https://cdn.tutoring.co.kr/uploads/topic_cover/2022/09/13/20220913102424_631fdbc818b11.jpg",
       "grade": "중급",
-      "isLiked": false
+      "isLiked": true
     },
     {
       "title": "Tutoring Times 2021 Vol.11",
@@ -124,7 +124,7 @@
       "idx": "3113",
       "imgPath": "https://cdn.tutoring.co.kr/uploads/topic_cover/2021/06/22/20210622123219_60d159c3e6eb0.jpg",
       "grade": "중고급",
-      "isLiked": false
+      "isLiked": true
     },
     {
       "title": "Joy the Tomboy 2 (Book 3, Review)",
