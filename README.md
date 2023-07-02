@@ -10,4 +10,5 @@
    > json-server -p 4000 topic.json
 4. API 요청을 위한 axios 설치
    > npm install axios
-5. 정규표현식을 이용한 Topic title 검색기능 구현
+5. 정규표현식을 이용한 Topic title 검색 기능 구현
+6. filter 메서드를 사용하여 주어진 토픽 리스트를 grade 카테고리 별로 필터링하는 기능 구현

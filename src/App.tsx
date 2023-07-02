@@ -5,6 +5,7 @@ type Topic = {
   idx: number;
   title: string;
   imgPath: string;
+  grade: string;
 };
 
 type Props = {
@@ -19,6 +20,7 @@ function TopicMessage({ topics, topicPrefix }: Props) {
     const regex = new RegExp(escapetopic, "i");
     return topic.title.match(regex);
   });
+
   return (
     <ul>
       {filteredTopics.map(({ title, imgPath, idx }) => {
@@ -36,32 +38,59 @@ function TopicMessage({ topics, topicPrefix }: Props) {
 function App() {
   const [topics, setTopics] = useState<Topic[]>([]);
   const [topicPrefix, setTopicPrefix] = useState<string>("");
+  const [selectedGrade, setSelectedGrade] = useState<string>("");
 
   function onChangeTopicPrefix({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) {
     setTopicPrefix(value.trim());
   }
+
+  function onGradeTabClick(grade: string) {
+    setSelectedGrade(grade);
+  }
+
+  function getFilteredTopicsByGrade() {
+    // 토픽 리스트를 Grade별로 필터링하는 함수
+    if (selectedGrade === "") {
+      return topics;
+    } else {
+      return topics.filter((topic) => topic.grade === selectedGrade);
+    }
+  }
+
   useEffect(() => {
-    const getTopics = async () => {
+    async function getTopics() {
       try {
         const res = await axios.get("http://localhost:4000/topics");
         setTopics(res.data);
       } catch (err) {
         console.error(err);
       }
-    };
+    }
     getTopics();
   }, []);
+
   return (
     <>
+      <div>
+        <button onClick={() => onGradeTabClick("")}>전체</button>
+        <button onClick={() => onGradeTabClick("입문")}>입문</button>
+        <button onClick={() => onGradeTabClick("초급")}>초급</button>
+        <button onClick={() => onGradeTabClick("중급")}>중급</button>
+        <button onClick={() => onGradeTabClick("중고급")}>중고급</button>
+        <button onClick={() => onGradeTabClick("고급")}>고급</button>
+      </div>
       <input
         type="text"
         name="topicFilterInput"
         id="topicFilterInput"
         onChange={onChangeTopicPrefix}
       />
-      <TopicMessage {...{ topics, topicPrefix }} />
+      <TopicMessage
+        topics={getFilteredTopicsByGrade()}
+        topicPrefix={topicPrefix}
+      />
     </>
   );
 }
